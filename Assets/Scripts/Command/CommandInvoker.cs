@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Command.Main;
 
 namespace Command
 {
@@ -31,5 +32,17 @@ namespace Command
         /// </summary>
         /// <param name="commandToRegister">The command to be registered.</param>
         public void RegisterCommand(ICommand commandToRegister) => commandRegistry.Push(commandToRegister);
+        
+        public void Undo()
+        {
+            if (!RegistryEmpty() && CommandBelongsToActivePlayer())
+                commandRegistry.Pop().Undo();
+        }
+        
+        private bool RegistryEmpty() => commandRegistry.Count == 0;
+        
+        private bool CommandBelongsToActivePlayer() =>
+            (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
+        
     }
 }
