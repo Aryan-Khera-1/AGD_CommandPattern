@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Windows.Input;
 using Command.Main;
 
 namespace Command
@@ -9,9 +10,13 @@ namespace Command
     public class CommandInvoker
     {
         // A stack to keep track of executed commands.
-        private Stack<ICommand> commandRegistry = new Stack<ICommand>();
+        private Stack<ICommand> commandRegistry;
         
-        public CommandInvoker() => SubscribeToEvents();
+        public CommandInvoker()
+        {
+            commandRegistry = new Stack<ICommand>();
+            SubscribeToEvents();
+        }
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnReplayButtonClicked.AddListener(SetReplayStack);
         
