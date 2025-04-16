@@ -29,7 +29,7 @@ namespace Command.Commands
         public override void Execute()
         {
             previousPower = targetUnit.CurrentPower;
-            GameService.Instance.ActionService.GetActionByType(CommandType.Attack)
+            GameService.Instance.ActionService.GetActionByType(CommandType.Cleanse)
                 .PerformAction(actorUnit, targetUnit, willHitTarget);
         }
     }
